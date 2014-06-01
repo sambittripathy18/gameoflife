@@ -1,0 +1,79 @@
+<html ng-app="gameApp">
+<head>
+<title>Game Of Life</title>
+<link rel="stylesheet"
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+<script src="game/js/grid.js"></script>
+<script src="game/js/cell.js"></script>
+<script src="game/js/app.js"></script>
+<style>
+.tCell{
+	width: 10px;
+	height: 10px;
+}
+</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-default">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">John Conway's Game Of Life</a>
+		</div>
+	</nav>
+	<div class="container">
+		<div ng-controller="MainCtrl">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="input-group">
+										<input type="number" min="0" max="60"
+											placeholder="enter the size of the grid..."
+											ng-model="gridSize" class="form-control"> <span
+											class="input-group-btn">
+											<button class="btn btn-success" type="button"
+												ng-click="createGrid()">Create!</button>
+										</span>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="btn-group">
+										<button type="button" class="btn btn-info" ng-click="run()">{{automationLabel}}</button>
+										<button type="button" class="btn btn-warning"
+											ng-click="grid.step()">{{stepLabel}}</button>
+										<button type="button" class="btn btn-danger"
+											ng-click="reset()">{{resetLabel}}</button>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="btn-group">
+										<button type="button" class="btn btn-primary" disabled>{{generationLabel}}
+											{{grid.generation}}   {{timeLabel}}{{timeInSec}}
+											{{secondLabel}}</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<table border="1" bordercolor="#ddd" class="center-block">
+									<tr ng-repeat="row in grid.cells">
+										<td ng-repeat="cell in row" ng-class="[cell.className, 'tCell']"
+											ng-click="toggleState($parent.$index, $index)"></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>
